@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSPMA Sizing Calculator</title>
+    <style>
+	
+	@font-face {
+      font-family: bahnschrift;
+      src: url('Fonts/bahnschrift.ttf') format('truetype');
+    }
+
+	@font-face {
+		font-family: OpenSans-Regular;
+		src: url('Fonts/OpenSans-Regular.ttf') format('truetype');
+    }
+	
+	
+       
+        body, html {
+            height: 100%; /* Ensure full height */
+            margin: 0;
+            font-family: bahnschrift, Helvetica, Sans-Serif;
+            background-color: #F5F5F5;
+            display: flex; /* Makes body a flex container */
+            flex-direction: column; /* Stack children vertically */
+			overflow-x: clip;
+        }
+
+
+        .header {
+			display: flex;
+			align-items: center; /* Align items vertically */
+			background-color: white;
+			color: #231F20;
+			padding: 20px;
+			height: 65px;			
+        }
+		
+		.headerText {
+			align-items: center;
+            background-color: white;
+            color: #231F20;
+            padding: 20px;
+			font-size: 18px;
+            text-decoration: none;
+			font-family: bahnschrift, Helvetica, Sans-Serif;
+			font-weight: 700;
+			
+        }
+		
+		.searchBar {
+			background-color: white;
+			width: 250px;
+			height: 44px;
+			border-radius: 5px;
+			display: flex;
+			align-items: center;
+			border: 1px solid #ccc;
+			margin: auto;
+			transform: translateX(0%);
+			position: relative;
+			z-index: 2;
+
+		}
+
+        .logo {
+            width: 200px;
+            height: auto;
+            margin-left: 20px;
+			margin-top: 2px;		
+        }
+		
+		.footerPics {
+			padding-right:15px;			
+        }
+
+
+        .nav-bar {
+            background-color: #254676;
+			height: 61px;
+        }
+		
+
+        .nav-bar a {
+            float: left; 
+            color: white;
+            text-align: center;
+            padding: 20px 20px;
+			font-size: 15px;
+            text-decoration: none;
+			font-family: bahnschrift, Helvetica, Sans-Serif;
+			font-weight: 400;
+            letter-spacing: 1px;			
+        }
+
+        .nav-bar a:hover {
+            color: #DBB246;
+        }
+		
+		.navbar-right {
+			float: right;
+		}
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			margin: auto;
+		
+		label {
+			padding: 10px;
+			font-family: bahnschrift, Helvetica, Sans-Serif;
+			font-weight: 400;
+			font-size: 18px;
+			text-align: right;
+		}
+
+		input {
+			height: 30px;
+			width: 50px;
+			border-radius: 3px;
+			font-family: bahnschrift, Helvetica, Sans-Serif;
+			font-weight: 400;
+			font-size: 17px;
+			border: 1px solid #ccc;
+			margin: 5px;
+			padding-left: 8px;
+		}
+		
+		input:focus {
+			outline: 3px solid rgba(191, 222, 255, 0.8);
+		}
+
+		}			
+		#startContainer {
+			display: flex;
+			flex-direction: column;
+			position: relative;
+			justify-content: center;
+		}
+		
+		#fixtureSelector {
+			flex: 1;
+		}
+		
+		.gpmStuff {
+			flex: 1;
+			flex-direction: column;
+		}
+		
+		#basinStuff {
+			flex: 1;
+		}
+		
+		#pipeLength {
+			flex: 1;
+		}
+		
+		#home {
+			width: 35px;
+		}
+		
+		#start {
+			font-family: bahnschrift;
+			font-weight: 600;
+			font-size: 20pt;
+			letter-spacing: 1px;
+			text-align: center;
+		}
+
+		#progress {
+			width: 100%;
+			align-self: flex-start;
+			padding-bottom:20px;
+		}
+		
+		.continue {
+			width: 100%;
+			bottom: 0px;
+			color: white;
+			height: 100px;
+			font-family: bahnschrift;
+			align-items: center;
+			padding-bottom:20px;
+			text-align: center;
+			display: flex;
+		}
+		
+		.continueButton {
+			background-color: #254676;
+			font-family: bahnschrift;
+			font-size: 16px;
+			font-weight: 400;
+			height: 40px;
+			width: 107px;
+			border-radius: 5px;			
+		}
+			
+		.continueButton:hover {
+			background-color: #254676;
+			color: #89BFE7;
+		}
+		
+		.calculation {
+			width: 100%;
+			position: relative;
+			bottom: 0px;
+			color: black;
+			padding: 10px;
+			height: 75px;
+			font-family: bahnschrift;
+			font-size: 18px;
+			font-weight: 400;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			flex-direction: column;
+		}
+        
+
+		button {
+			font-family: bahnschrift, Helvetica, Sans-Serif;
+			font-size: 18px;
+			padding: 5px 10px;
+			background-color: #A9A9A9;
+			border: none;
+			color: white;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+			height: 45px;
+			text-align: center;
+			margin-top: 20px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		#startButton:hover {
+			background-color: #555;
+		}
+
+        #footer {
+			position: relative;
+			bottom: 0;
+            background-color: #254676;
+            color: white;
+            padding: 14px 50px;
+			height:20px;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			overflow: none;
+			justify-content: space-between;
+			
+        }
+		
+		.footer-left {
+			font-family: bahnschrift;
+			font-size:11px;
+			padding-bottom:7px;
+			margin-left:-27px;
+		}
+		
+		.footer-right {
+			font-family: bahnschrift;
+			font-size:11px;
+			padding-bottom:7px;
+			margin-right:70px;
+		}
+		
+		#footer2 {
+			position: relative;
+			bottom: 0px;
+            background-color: #231F20;
+            color: white;
+			width: 100%;
+            padding: 20px 0;
+			max-height:200px;
+			font-family: bahnschrift;
+			align-items: center;
+			text-align: right;
+        }
+		
+		.hidden {
+			display: none;
+		}
+				
+		
+		.fixtureUnitSelect {
+		}
+		
+		#fixturesToChoose {
+			display: grid;
+			grid-template-columns: auto auto auto auto;
+			padding: 20px;
+			align-items: center;
+			
+		}
+		
+		#fixtureOutputs {
+			
+		}
+		
+		#fittingsOutPuts {
+			display: grid;
+			justify-items: right;
+			grid-template-columns: auto auto;
+			space-between: 30px;
+			margin-bottom: 30px;
+		}
+		#fittingsOutPuts2 {
+			display: grid;
+			grid-template-columns: auto auto auto auto;
+			margin-top: 30px;
+		}
+		#fittingsOutPuts > label {
+			padding-right: 25px;
+			}
+
+			
+		#fittingsDiv {
+			border-top: 1px solid #afafaeff;
+			display: block;
+			width: 100%
+			margin-left: -15vw;
+			margin-left: 0;
+			margin-right:0;
+			text-align: center;
+			margin-top: 15px;
+			margin-bottom: 15px;
+			font-weight: 800;
+			font-size: 20px;
+		}
+		
+		.button-row {
+			margin-left:20px;
+		}
+
+		.active-button {
+			display:inline-block;
+			float:left;
+			background-color: #A9A9A9;
+			color: white; 
+			padding: 10px 20px; 
+			border: none;
+			border-radius: 0px;
+			cursor: pointer;
+			height: 35px;
+			transition: background-color 0.3s;
+			margin-right: 7px;
+		}
+
+		.active-button:hover {
+			background-color: #555;
+		}
+		
+		.status-button {
+			display:flex;
+			align-items:center;
+			float:left;
+			background-color: #A9A9A9; 
+			color: white; 
+			padding: 10px 10px; 
+			border: none; 
+			border-radius: 0px; 
+			cursor: default;
+			height: 35px;
+			transition: background-color 0.3s; 
+			margin-right: 7px;
+		}
+
+
+
+		.inactive-button {
+			cursor: default;
+			display:inline-block;
+			float:left;
+			background-color:
+			color: #666;
+			padding: 10px 20px; 
+			border: none;
+			border-radius: 0px;
+			margin-right: 7px;
+			height: 35px;
+		}
+
+		.inactive-button:hover {
+			background-color: #EEE;
+		}
+		
+		.homeimg {
+			width: 23px;
+            height: auto;
+            margin-left: -12px;
+			margin-top: -3px;			
+        }
+		select {
+			width: 70px;
+			margin: 5px;
+			font-family: bahnschrift;
+			-webkit-border-radius: 0px;
+			}
+		option {
+		-webkit-border-radius: 0px;
+		}
+		select:focus {
+					outline: 3px solid rgba(191, 222, 255, 0.8);
+					}
+					
+		
+		#gpmValue {
+			background-color: lightgrey;
+			pointer-events: none;
+			justify-self: left;
+			padding-left: 10px;
+			}
+		.fittings {
+			justify-self: left;
+			padding-left: 10px;
+			}
+		.recommendedBasins {
+			font-weight: 800;
+			font-size: 20px;
+			}
+		.recommendedBasins > div {
+			text-align: center;
+			}
+    </style>
+</head>
+
+<body>
+
+
+	
+    <div class="header">
+      <a href='https://www.sspma.org/'><img src="Images/SSPMA.jpg" alt="Logo" class="logo"></a>
+			<div class="headerText">Sump and Sewage Pump Manufacturers Association</div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-bar">
+   
+			<div class="navbar-right">
+				<a href="#">Print</a>
+				<a href="#">Help</a>
+			</div>
+	</div>
+
+    <!-- Main Content -->
+
+	<div id="progress">
+		<div class="button-row">
+			<button id='home' class="hidden" onclick="handleClick()"><img src="Images/home.svg" alt="Logo" class="homeimg"></button>
+			<button id='fixtureButton' class="hidden">1. Pump Capacity</button>
+			<button id='TDHButton' class="hidden">2. TDH</button>
+			<button id='basinSizeButton' class="hidden">3. Basin Size</button>
+		</div>
+		</div>
+
+	<div class='container'>
+		<div id='startContainer'>
+			<div id="start">Sewage Pump<br>Sizing Calculator</div>
+			<button style="width:200px" id='startButton'>Start Sizing</button>
+	</div>
+		
+		<div id='fixtureSelector' class='hidden fixtureUnitSelect'>
+		<div class='calculation' id='instructions' style ="font-size:20px"><b>Select Number of Fixtures to Determine Pump Capacity GPM</b></div>
+			<div id='fixturesToChoose'>
+
+		<label for="brGroup">Bathroom Group</label>
+		<input class='fixture' min='0' type="number" id="brGroup" name="brGroup" value='0'>
+		
+		<label for="unlisted1">Unlisted Fixture, 1-1/4" Trap</label>
+		<input class='fixture' min='0' type="number" id="unlisted1" name="unlisted1" value='0'>
+
+
+		<label for="unlisted2">Unlisted Fixture, 1-1/2" Trap</label>
+		<input class='fixture' min='0' type="number" id="unlisted2" name="unlisted2" value='0'>
+
+
+		<label for="unlisted3">Unlisted Fixture, 2" Trap</label>
+		<input class='fixture' min='0' type="number" id="unlisted3" name="unlisted3" value='0'>
+
+
+		<label for="unlisted4">Unlisted Fixture, 2-1/2" Trap</label>
+		<input class='fixture' min='0' type="number" id="unlisted4" name="unlisted4" value='0'>
+
+
+		<label for="unlisted5">Unlisted Fixture, 3" Trap</label>
+		<input class='fixture' min='0' type="number" id="unlisted5" name="unlisted5" value='0'>
+		
+		</div>
+		<br>
+		
+		<div id='fixtureOutputs'>
+		<div class="calculation"><div><span  id='fixtureValue2'></span><span> Fixture Units</span></div>
+		<div><span id='gpmValue2'></span> <span> GPM</span></div></div>
+  
+	<div class="continue"><button class='continueButton' id='toGPM'>Continue</button></div></div>
+		</div>
+		
+		<div id='gpmStuff' class='gpmStuff hidden'>
+		
+		<div id='fittingsOutPuts'>
+			<label for='gpmValue'>GPM</label><input id='gpmValue' name='gpmValue'></input>
+		
+			<label for='nomPipe'>Nominal Pipe Size</label>
+			<select class='fittings' id="nomPipe" name="nomPipe">
+				<option id='2inch' selected value="2">2"</option>
+				<option id='2.5inch' value="2.5">2-1/2"</option>
+				<option id='3inch' value="3">3"</option>
+			</select>
+			
+			
+		<label for='matPipe'>Pipe Material</label>
+			<select class='fittings'  id="matPipe" name="matPipe">
+				<option selected value="PVC">PVC</option>
+				<option value="Steel">Steel</option>
+			</select>
+			
+			
+	
+			<label for="StraightPipe">Straight Pipe (ft):</label>
+			<input class='fittings' min='0' type="number" id="StraightPipe" name="StraightPipe" value='0'>
+			
+			<label for="StaticHead">Static Head (ft):</label>
+			<input class='fittings' min='0'  type="number" id="StaticHead" name="StaticHead" value='0'>
+    	</div>
+			<div id='fittingsDiv'>Fittings from pump to Discharge in Selected size</div>
+		<div id='fittingsOutPuts2'>
+			<label for='90Elbow'>Number of 90 deg Elbows: </label>
+			<input  class='fittings' min='0' type='number' id='90Elbow' name='90Elbow' value=0>
+
+			<label for='45Elbow'>Number of 45 deg Elbows: </label>
+			<input  class='fittings'min='0'  type='number' id='45Elbow' name='45Elbow' value=0>
+
+  	
+			<label for='teeThru'>Number of Tees (through flow): </label>
+			<input  class='fittings'min='0'  type='number' id='teeThru' name='teeThru' value=0>
+
+  	  
+			<label for='teeBranch'>Number of Tees (branch flow): </label>
+			<input  class='fittings' min='0' type='number' id='teeBranch' name='teeBranch' value=0> 
+  	  
+			<label for='swingCheck'>Number of swing check valves: </label>
+			<input class='fittings' min='0'  type='number' id='swingCheck' name='swingCheck' value=0>
+
+			<label for='gateValve'>Number of Gate Valves: </label>
+			<input class='fittings'  min='0' type='number' id='gateValve' name='gateValve' value=0>
+			</div>
+
+	<br>
+	
+		<div id='lengthsOutputs'>
+	<div class='calculation'><div id='tdhoutput'><span>TDH: </span><span id='tdhResult'></span></div></div>
+		<div class="continue"><button class='continueButton' id='toBasin'>Continue</button></div></div>
+		
+		
+
+</div>
+<div id='basinStuff' class='hidden'>
+		<div class = 'recommendedBasins'>
+			<div><span  id='gpmValue3'></span><span> GPM</span></div><br>
+			<div><span id='TDHOutput3'></span> <span> TDH</span></div><br><span id='recommendedBasins'>Fittings from pump to Discharge in Selected size</span></div><br>
+			<div class='continue'><button class='continueButton' onclick='location.reload()'>Start Over</button></div><br>
+		</div>
+</div>
+
+
+
+</div>
+  
+
+	
+	<div id="footer2">
+		<a href='#'><img src="Images/in.svg" style="width: 33px;" alt="in.svg" class="footerPics"></a>
+		<a href='#'><img src="Images/fb.svg" style="width: 33px;" alt="fb.svg" class="footerPics"></a>
+		<a href='#'><img src="Images/mail.svg" style="width: 33px;" alt="mail.svg" class="footerPics"></a>
+	</div>
+
+	
+    <div id="footer">
+		<div class="footer-left">&copy; 2024 SSPMA. All Rights Reserved.</div>
+		<div class="footer-right">Terms of Service</div>
+    </div>
+	
+<script>
+
+	document.getElementById('startButton').addEventListener('click', function()  {
+	//document.getElementById('continue').style.display = 'block';
+	document.getElementById('home').classList.add('active-button');
+	document.getElementById('fixtureButton').classList.add('status-button');
+	document.getElementById('fixtureButton').classList.remove('inactive-button');
+	document.getElementById('fixtureSelector').classList.remove('hidden');
+	document.getElementById('startContainer').style.display = 'none';
+	});
+	document.getElementById('home').addEventListener('click', function() {
+	location.reload()
+	});
+	
+document.getElementById('toGPM').addEventListener('click', function() {
+	document.getElementById('TDHButton').classList.add('status-button');
+	document.getElementById('TDHButton').classList.remove('inactive-button');
+fixtureUnits();
+	document.getElementById('fixtureSelector').classList.add('hidden');
+	document.getElementById('gpmStuff').classList.remove('hidden');
+	//document.getElementById('GPM').classList.remove('hidden');
+	recommendedGPM = (1.851732392 * Math.pow(totalUnits, .6884906927))
+	recommendedGPM10 = Math.round((1.851732392 * Math.pow(totalUnits, .6884906927))/10)*10;
+	recommendedGPM25 = Math.round((1.851732392 * Math.pow(totalUnits, .6884906927))/25)*25;
+	recommendedGPM5 = Math.round((1.851732392 * Math.pow(totalUnits, .6884906927))*2)/2;
+	document.getElementById('gpmValue').value = recommendedGPM5;
+	//document.getElementById('fixtureValue').innerHTML = totalUnits;
+	
+/*	if (recommendedGPM > 100) {
+		document.getElementById('2inch').classList.add('hidden');
+		document.getElementById('2.5inch').setAttribute('selected', true);
+	}
+	if (recommendedGPM < 29 || recommendedGPM > 200) {
+		document.getElementById('2.5inch').classList.add('hidden');
+		if (recommendedGPM < 29) {
+	document.getElementById('2inch').setAttribute('selected', true);
+		} else {
+	document.getElementById('3inch').setAttribute('selected', true);
+					}
+	}
+	if (recommendedGPM < 45) {
+		document.getElementById('3inch').classList.add('hidden');
+	}
+	if (recommendedGPM > 250) {
+		alert('This calculator only supports up to 250GPM');
+	document.getElementById('TDHButton').classList.remove('status-button');
+	document.getElementById('TDHButton').classList.add('inactive-button');
+	
+	document.getElementById('fixtureSelector').classList.remove('hidden');
+	document.getElementById('gpmStuff').classList.add('hidden');
+	}*/
+	});
+	
+/*document.getElementById('calcStuff').addEventListener('click', function() {
+	//document.getElementById('gpmStuff').classList.add('hidden');
+	document.getElementById('pipeLength').classList.remove('hidden');
+
+	console.log(recommendedGPM < 35);
+	if (recommendedGPM <= 35) {
+		document.getElementById('recommendedBasins').innerHTML = '18" - 48" Basin Recommended'
+	}
+	if (recommendedGPM > 35 && recommendedGPM <= 60) {
+		document.getElementById('recommendedBasins').innerHTML = '24" - 48" Basin Recommended'
+	}
+	if (recommendedGPM > 60 && recommendedGPM <= 100) {
+		document.getElementById('recommendedBasins').innerHTML = '30" - 48" Basin Recommended'
+	}
+	if (recommendedGPM > 100 && recommendedGPM <= 175) {
+		document.getElementById('recommendedBasins').innerHTML = '36" - 48" Basin Recommended'
+	}
+	if (recommendedGPM > 175 && recommendedGPM <= 250) {
+		document.getElementById('recommendedBasins').innerHTML = '48" Basin Recommended'
+	}
+	if (recommendedGPM > 250) {
+		document.getElementById('recommendedBasins').innerHTML = 'Too many fixture units/GPM'
+	}
+nompipe = document.getElementById('nomPipe').value;
+if (nompipe === '2') {
+	pipeID = 1.939;
+	}
+if (nompipe === '2.5') {
+	pipeID = 2.469;
+	}
+if (nompipe === '3') {
+	pipeID = 3.068;
+	}
+matpipe = document.getElementById('matPipe').value;
+if (matpipe === 'PVC') {
+		absRoughness = .00006;
+		cFactor = 150
+		}
+if (matpipe === 'Steel') {
+	absRoughness = .0018;
+	cFactor = 100;
+	}
+console.log(matpipe);
+	});*/
+
+
+//document.getElementById('toPipeLengths').addEventListener('click', function() {
+
+//	document.getElementById('basinStuff').classList.add('hidden');
+//	document.getElementById('pipeLength').classList.remove('hidden');
+	//reynoldsNumber = (50.66*recommendedGPM * 62.4)/(pipeID * 1);
+	
+	//document.getElementById('reynoldsResults').innerHTML = reynoldsNumber;
+	//	darcyFactor = 0.25/(Math.pow(Math.log10((absRoughness/(3.7 * pipeID)) + (5.74/(Math.pow(reynoldsNumber, .9)))),2))
+	//document.getElementById('darcyFactor').innerHTML = darcyFactor;
+
+/*document.getElementById('headLoss').addEventListener('click', function() {
+	StraightPipe = document.getElementById('StraightPipe').value;
+	console.log(recommendedGPM);
+
+	
+el90 = document.getElementById('90Elbow').value;
+el45 = document.getElementById('45Elbow').value;
+teeThru = document.getElementById('teeThru').value;
+teeBranch = document.getElementById('teeBranch').value;
+swingCheck = document.getElementById('swingCheck').value;
+gateValve = document.getElementById('gateValve').value;
+totalPipe = document.getElementById('totalStraightPipe')
+nompipe = document.getElementById('nomPipe').value;
+	switch (nompipe) {
+		case '2':
+		el90Pipe = el90 * 5.2;
+		el45Pipe = 2.8 * el45;
+		teeThruPipe = 3.5 * teeThru;
+		teeBranchPipe = 10.3 * teeBranch;
+		swingCheck = 17.2 * swingCheck;
+		gateValvePipe = 1.4 * gateValve;
+		break;
+		case '2.5':
+		el90Pipe = el90 * 6.2;
+		el45Pipe = 3.3 * el45;
+		teeThruPipe = 4.1 * teeThru;
+		teeBranchPipe = 12.3 * teeBranch;
+		swingCheck = 20.6 * swingCheck;
+		gateValvePipe = 1.7 * gateValve;
+		break;
+		case '3':
+		el90Pipe = el90 * 7.7;
+		el45Pipe = 4.1 * el45;
+		teeThruPipe = 5.1 * teeThru;
+		teeBranchPipe = 15.3 * teeBranch;
+		swingCheck = 25.5 * swingCheck;
+		gateValvePipe = 2.0 * gateValve;
+		}
+		
+	totalStraightPipe = +StraightPipe + +el90Pipe + + el45Pipe + +teeThruPipe + +teeBranchPipe + +swingCheck + +gateValvePipe
+	totalPipe.innerHTML = totalStraightPipe;
+	headLoss = 2.31 * ((4.52 *totalStraightPipe * Math.pow(recommendedGPM, 1.852))/(Math.pow(cFactor, 1.852) * Math.pow(pipeID, 4.87)));
+	console.log(Math.pow(cFactor, 1.852) * Math.pow(pipeID, 4.87));
+	console.log(Math.pow(cFactor, 1.852));
+	console.log(Math.pow(pipeID, 4.87));
+	console.log(cFactor);
+	staticHead = document.getElementById('StaticHead').value
+	tdhResult = +staticHead + +headLoss;
+	document.getElementById('headLossResult').innerHTML = Math.round(headLoss);
+	document.getElementById('tdhResult').innerHTML = Math.round(tdhResult);
+	});*/
+const fixtures = document.querySelectorAll(".fixture");
+function fixtureUnits() {
+		unlisted1 = document.getElementById('unlisted1').value;
+	unlisted2 = document.getElementById('unlisted2').value;
+	unlisted3 = document.getElementById('unlisted3').value;
+	unlisted4 = document.getElementById('unlisted4').value;
+	unlisted5 = document.getElementById('unlisted5').value;
+	brGroup = document.getElementById('brGroup').value;
+console.log(unlisted5);
+	unlisted1Units = unlisted1 * 2;
+	unlisted2Units = unlisted2 * 3;
+	unlisted3Units = unlisted3 * 4;
+	unlisted4Units = unlisted4 * 5;
+	unlisted5Units = unlisted5 * 6;
+	brGroupUnits = brGroup * 6;
+console.log(unlisted5Units);
+	totalUnits = +unlisted1Units + +unlisted2Units + +unlisted3Units + +unlisted4Units + +unlisted5Units + +brGroupUnits;
+console.log(totalUnits);
+	recommendedGPM = (1.851732392 * Math.pow(totalUnits, .6884906927))
+	recommendedGPM10 = Math.round((1.851732392 * Math.pow(totalUnits, .6884906927))/10)*10;
+	recommendedGPM25 = Math.round((1.851732392 * Math.pow(totalUnits, .6884906927))/25)*25;
+	recommendedGPM5 = Math.round((1.851732392 * Math.pow(totalUnits, .6884906927))*2)/2;
+	}
+fixtures.forEach(function(fixture) {
+	fixture.addEventListener("change", function() {
+	fixtureUnits();
+	document.getElementById('gpmValue2').innerHTML = recommendedGPM5;
+	document.getElementById('fixtureValue2').innerHTML = totalUnits;
+	});
+	});
+const fittings = document.querySelectorAll('.fittings');
+
+fittings.forEach(function(fitting) {
+	fitting.addEventListener('change', function() {
+		StraightPipe = document.getElementById('StraightPipe').value;
+matpipe = document.getElementById('matPipe').value;
+if (matpipe === 'PVC') {
+		absRoughness = .00006;
+		cFactor = 150
+		}
+if (matpipe === 'Steel') {
+	absRoughness = .0018;
+	cFactor = 100;
+	}
+	
+el90 = document.getElementById('90Elbow').value;
+el45 = document.getElementById('45Elbow').value;
+teeThru = document.getElementById('teeThru').value;
+teeBranch = document.getElementById('teeBranch').value;
+swingCheck = document.getElementById('swingCheck').value;
+gateValve = document.getElementById('gateValve').value;
+totalPipe = document.getElementById('totalStraightPipe')
+nompipe = document.getElementById('nomPipe').value;
+	switch (nompipe) {
+		case '2':
+		el90Pipe = el90 * 5.2;
+		el45Pipe = 2.8 * el45;
+		teeThruPipe = 3.5 * teeThru;
+		teeBranchPipe = 10.3 * teeBranch;
+		swingCheck = 17.2 * swingCheck;
+		gateValvePipe = 1.4 * gateValve;
+		break;
+		case '2.5':
+		el90Pipe = el90 * 6.2;
+		el45Pipe = 3.3 * el45;
+		teeThruPipe = 4.1 * teeThru;
+		teeBranchPipe = 12.3 * teeBranch;
+		swingCheck = 20.6 * swingCheck;
+		gateValvePipe = 1.7 * gateValve;
+		break;
+		case '3':
+		el90Pipe = el90 * 7.7;
+		el45Pipe = 4.1 * el45;
+		teeThruPipe = 5.1 * teeThru;
+		teeBranchPipe = 15.3 * teeBranch;
+		swingCheck = 25.5 * swingCheck;
+		gateValvePipe = 2.0 * gateValve;
+		}
+if (nompipe === '2') {
+	pipeID = 1.939;
+	}
+if (nompipe === '2.5') {
+	pipeID = 2.469;
+	}
+if (nompipe === '3') {
+	pipeID = 3.068;
+	}	
+	totalStraightPipe = +StraightPipe + +el90Pipe + + el45Pipe + +teeThruPipe + +teeBranchPipe + +swingCheck + +gateValvePipe
+	//totalPipe.innerHTML = Math.round(totalStraightPipe);
+	headLoss = 2.31 * ((4.52 * totalStraightPipe * Math.pow(recommendedGPM, 1.852))/(Math.pow(cFactor, 1.852) * Math.pow(pipeID, 4.87)));
+
+	staticHead = document.getElementById('StaticHead').value
+	tdhResult = +staticHead + +headLoss;
+	//document.getElementById('headLossResult').innerHTML = Math.round(headLoss);
+	document.getElementById('tdhResult').innerHTML = Math.round(tdhResult);
+
+	});
+	});
+/*document.getElementById('fixture').addEventListener('click', function() {
+	document.getElementById('gpmStuff').classList.add('hidden');
+	document.getElementById('fixtureSelector').classList.remove('hidden');
+	document.getElementById('GPM').classList.add('hidden');
+	});*/
+document.getElementById('toBasin').addEventListener('click', function() {
+	document.getElementById('gpmStuff').classList.add('hidden');
+	document.getElementById('basinStuff').classList.remove('hidden');
+	document.getElementById('basinSizeButton').classList.remove('hidden');
+	document.getElementById('basinSizeButton').classList.add('status-button');
+	document.getElementById('gpmValue3').innerHTML = recommendedGPM5;
+	document.getElementById('TDHOutput3').innerHTML = Math.round(tdhResult);
+	if (recommendedGPM <= 35) {
+		document.getElementById('recommendedBasins').innerHTML = '18" - 48" Basin Recommended'
+	}
+	if (recommendedGPM > 35 && recommendedGPM <= 60) {
+		document.getElementById('recommendedBasins').innerHTML = '24" - 48" Basin Recommended'
+	}
+	if (recommendedGPM > 60 && recommendedGPM <= 100) {
+		document.getElementById('recommendedBasins').innerHTML = '30" - 48" Basin Recommended'
+	}
+	if (recommendedGPM > 100 && recommendedGPM <= 175) {
+		document.getElementById('recommendedBasins').innerHTML = '36" - 48" Basin Recommended'
+	}
+	if (recommendedGPM > 175 && recommendedGPM <= 250) {
+		document.getElementById('recommendedBasins').innerHTML = '48" Basin Recommended'
+	}
+	if (recommendedGPM > 250) {
+		document.getElementById('recommendedBasins').innerHTML = '48" Basin Recommended'
+	}
+	});
+	
+</script>
+	
+	
+	
+</body>
+
+</html>
